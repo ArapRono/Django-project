@@ -1,4 +1,5 @@
-
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -27,31 +28,6 @@
 <div class="super_container">
 	
 	<Header >
-	<header class="header">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="header_content d-flex flex-row align-items-center justify-content-start">
-						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
-							<div class="logo"><a href="home.html">Shiftsoft Inc.</a></div>
-							<nav class="main_nav">
-								<ul class="d-flex flex-row align-items-start justify-content-start">
-									<li class="active"><a href="{% url 'home'%}">Home</a></li>
-									<li><a href="{% url 'about'%}">About us</a></li>
-									<li><a href="{% url 'signup'%}">Create Account</a></li>
-									<li><a href="{% url 'login'%}">Login</a></li>
-									<li><a href="{% url 'contact'%}">Contact</a></li>
-									<li><a href="#">Admin</a></li>
-								</ul>
-							</nav>
-							<div class="header_phone ml-auto">Call us: 0729960053</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header> 
 	
 	<!-- Home -->
 
@@ -63,18 +39,25 @@
 				
 				<!-- Slide -->
 				<div class="owl-item">
-					<div class="background_image" style="background-image:url({%static 'tools_contact/images/image_10.jpg'%});"></div>
+					
+					{% for house  in  houses %}
+					<div class="background_image" style="background-image:url({{ house.image_2.url }});"></div>
 					<div class="home_slider_content_container">
 						<div class="container">
 							<div class="row">
 								<div class="col">
 									<div class="home_slider_content">
-										<div class="home_title"><h2>Houses to let, find the best home here.</h2></div>
+										<div class="home_title">
+											<h2>Find the best home.</h2>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+						
+					{% endfor %}
+
 				</div>
 				
 
@@ -96,22 +79,8 @@
 	<div class="s003 container">
 		<form>
 			<div class="inner-form">
-				<div class="input-field first-wrap">
-					<div class="input-select">
-						<select data-trigger="" name="choices-single-defaul">
-							<option placeholder="">All categories</option>
-							<option>Agent type</option>
-							<option>Bedsitters</option>
-							<option>County</option>
-							<option>Region</option>
-							<option>Rent Amount</option>
-							<option>Single Rooms</option>
-							<option>No of bedrooms</option>
-						</select>
-					</div>
-				</div>
 				<div class="input-field second-wrap">
-					<input id="search" type="text" placeholder="Enter Keyword in and click search" />
+					<input id="search" type="text" placeholder="Enter keywords eg. region,county, singlerooms, bedsitters, agent name etc." />
 				</div>
 				<div class="input-field third-wrap">
 					<button class="btn-search" type="button">
@@ -133,316 +102,94 @@
 
 	<div class="destinations" id="destinations">
 		<div class="container">
+
 			<div class="row">
 				<div class="col text-center">
-					<div class="section_title"><h3>Most searched places</h3></div>
+					<div class="section_title"><h3>Best places</h3></div>
 				</div>
 			</div>
+			<!--This iis the start of if condition-->
+			{% if is_clicked %}
+			<div>
+				<div>
+					<div class="container-fluid">
+
+					{% for house  in  houses %}
+					
+					{% if  house.id == houses_id %}
+					<!-- Destination -->
+					<div class=" row">
+						<div class="destination_image  col-sm-4">
+							<img src="{{ house.image_1.url }}" alt="">
+						</div>
+						<div class="destination_image col-sm-4">
+							<img src="{{ house.image_2.url }}" alt="">
+						</div>
+						<div class="destination_image col-sm-4">
+							<img src="{{ house.image_3.url }}" alt="">
+						</div>						
+						<div>
+							<div class="destination_title"><a href="#">{{house.county}} County</a></div>
+							<h1><a href="#">{{house.region}} area, {{house.estate}} esate</a> </h1>
+							<div>
+								<h4>{{house.description}}</h4>
+							</div>
+							<div class="destination_price">
+								<ul>
+									<li>Total primary key Ksh. {{house.id}}</li>
+									<li>Total rent Ksh. {{house.rent}}</li>
+									<li>Total deposit Ksh. {{house.desposit}}</li>
+									<li>Total waterbills Ksh. {{house.waterbills}}</li>
+									<li>Total electricitybills Ksh. {{house.electricitybills}}</li>
+								</ul>
+					
+							</div>
+					
+						</div>
+					</div>
+						
+					{% endif %}			
+					{% endfor %}	
+					</div>
+				</div>
+			</div>
+
+			{% else %}
 			<div class="row destinations_row">
 				<div class="col">
 					<div class="destinations_container item_grid">
-
+						{% for house  in  houses %}
 						<!-- Destination -->
 						<div class="destination item">
-							<div class="destination_image">
-								<img src="{%static 'tools_home/images/destination_1.jpg'%}" alt="">
-								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Nyali</a></div>
-								<div class="destination_subtitle"><p>ShiftSoft is the future.</p></div>
-								<div class="destination_price">Rent Ksh.6790</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="{%static 'tools_home/images/destination_2.jpg'%}" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="/tools_home/destinations.html">Diani</a></div>
-								<div class="destination_subtitle"><p>ShiftSoft is the future.</p></div>
-								<div class="destination_price">Rent Ksh.6790</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="{%static 'tools_home/images/destination_3.jpg'%}" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Tudor Nora</a></div>
-								<div class="destination_subtitle"><p>ShiftSoft is the future.</p></div>
-								<div class="destination_price">Rent Ksh.6790</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="{%static 'tools_home/images/destination_4.jpg'%}" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Likoni</a></div>
-								<div class="destination_subtitle"><p>ShiftSoft is the future.</p></div>
-								<div class="destination_price">Rent Ksh.6790</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="{%static 'tools_home/images/destination_5.jpg'%}" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Old Town</a></div>
-								<div class="destination_subtitle"><p>ShiftSoft is the future.</p></div>
-								<div class="destination_price">Rent Ksh.6790</div>
-							</div>
-						</div>
-
-						<!-- Destination -->
-						<div class="destination item">
-							<div class="destination_image">
-								<img src="{%static 'tools_home/images/destination_6.jpg'%}" alt="">
-							</div>
-							<div class="destination_content">
-								<div class="destination_title"><a href="destinations.html">Changamwe</a></div>
-								<div class="destination_subtitle"><p>ShiftSoft is the future.</p></div>
-								<div class="destination_price">Rent Ksh.6790</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Testimonials -->
-
-	<div class="testimonials" id="testimonials">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static 'tools_home/images/image_10.jpg'%}" data-speed="0.8"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col text-center">
-					<div class="section_subtitle">simply amazing places</div>
-					<div class="section_title"><h2>ShiftSoft Inc Tests</h2></div>
-				</div>
-			</div>
-			<div class="row testimonials_row">
-				<div class="col">
-
-					<!-- Testimonials Slider -->
-					<div class="testimonials_slider_container">
-						<div class="owl-carousel owl-theme testimonials_slider">
-							
-							<!-- Slide -->
-							<div class="owl-item text-center">
-								<div class="testimonial">ShiftSoft at development phase.</div>
-								<div class="testimonial_author">
-									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>ShiftSoft,</div>
-										<div>ShiftSoft</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Slide -->
-							<div class="owl-item text-center">
-								<div class="testimonial">ShiftSoft at development phase.</div>
-								<div class="testimonial_author">
-									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>ShiftSoft,</div>
-										<div>ShiftSoft</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Slide -->
-							<div class="owl-item text-center">
-								<div class="testimonial">ShiftSoft at development phase..</div>
-								<div class="testimonial_author">
-									<div class="testimonial_author_content d-flex flex-row align-items-end justify-content-start">
-										<div>ShiftSoft,</div>
-										<div>ShiftSoft</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="test_nav">
-			<ul class="d-flex flex-column align-items-end justify-content-end">
-				<li><a href="#">ShiftSoft<span>01</span></a></li>
-				<li><a href="#">ShiftSoft<span>02</span></a></li>
-				<li><a href="#">ShiftSoft<span>03</span></a></li>
-			</ul>
-		</div>
-	</div>
-
-	<!-- News -->
-
-	<div class="news" id="news">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-8">
-					<div class="news_container">
-						
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="{% static 'tools_home/images/image_8.jpg'%}" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>02</div>
-									<div>june</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best places for home</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">Home</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>ShiftSoft.</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="{% static 'tools_home/images/image_8.jpg'%}" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>01</div>
-									<div>june</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best places for home</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">Best places for home</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>Tempor massa et laoreet malesuada. Pellentesque sit amet elementum ccumsan sit amet mattis eget, tristique at leo.</p>
-								</div>
-							</div>
-						</div>
-
-						<!-- News Post -->
-						<div class="news_post d-flex flex-md-row flex-column align-items-start justify-content-start">
-							<div class="news_post_image"><img src="{% static 'tools_home/images/image_8.jpg'%}" alt=""></div>
-							<div class="news_post_content">
-								<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
-									<div>29</div>
-									<div>may</div>
-								</div>
-								<div class="news_post_title"><a href="#">Best places for home</a></div>
-								<div class="news_post_category">
-									<ul>
-										<li><a href="#">Best places for home</a></li>
-									</ul>
-								</div>
-								<div class="news_post_text">
-									<p>Best places for home.</p>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-
-				<!-- News Sidebar -->
-				<div class="col-xl-4">
-					<div class="travello">
-						<div class="background_image" style="background-image:url({% static 'tools_home/images/image_8.jpg'%});"></div>
-						<div class="travello_content">
-							<div class="travello_content_inner">
-								<div></div>
-								<div></div>
-							</div>
-						</div>
-						<div class="travello_container">
-							<a href="#">
-								<div class="d-flex flex-column align-items-center justify-content-end">
-									<span class="travello_title">Get a 20% Discount</span>
-									<span class="travello_subtitle">Best places for home</span>
-								</div>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Footer -->
-
-	<footer class="footer">
-		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="{% static 'tools_home/images/image_10.jpg'%}" data-speed="0.8"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="newsletter">
-						<div class="newsletter_title_container text-center">
-							<div class="newsletter_title">Subscribe to our newsletter to get the latest trends & news</div>
-							<div class="newsletter_subtitle">Join our database NOW!</div>
-						</div>
-						<div class="newsletter_form_container">
-							<form action="#" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form">
-								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between">
-									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required"><div class="input_border"></div></div>
-									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required"><div class="input_border"></div></div>
-								</div>
-								<div><button class="newsletter_button">subscribe</button></div>
+							<form action="{% url 'home'%}" method="POST">
+								{% csrf_token %}
+								<button value="{{ house.id }}" name="more_info"> 
+									<div class="destination_image">
+									<img src="{{ house.image_1.url }}" alt="">
+									</div>   
+								</button>
 							</form>
+							<div class="destination_content">
+								<div class="destination_title"><a href="#">{{house.county}} County</a></div>
+								<div class="destination_price">Total rent Ksh. {{house.rent}}</div>
+								<form action="{% url 'home'%}" method="POST">
+									{% csrf_token %}
+									<button class="btn btn-info btn btn-lg" value="{{ house.id }}" name="more_info"
+										id="more" type="submit">more</button>
+								</form>
+							</div>
 						</div>
+						{% endfor %}
 					</div>
 				</div>
 			</div>
-			<div class="row footer_contact_row">
-				<div class="col-xl-10 offset-xl-1">
-					<div class="row">
 
-						<!-- Footer Contact Item -->
-						<div class="col-xl-4 footer_contact_col">
-							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
-								<div class="footer_contact_title">Contact us</div>
-								<div class="footer_contact_list">
-									<ul>
-										<li>Office 0729960053</li>
-										<li>Mobile: 0729960053</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<!-- Footer Contact Item -->
-						<div class="col-xl-4 footer_contact_col">
-							<div class="footer_contact_item d-flex flex-column align-items-center justify-content-start text-center">
-								<div class="footer_contact_title">Send us a message</div>
-								<div class="footer_contact_list">
-									<ul>
-										<li>kipkorirrgideon@yahoo.com</li>
-										<li>info@shiftsoft.com</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
+				
+			{% endif %}
+			<!--This is the end of if condition-->
+			
 		</div>
-		<div class="col text-center"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </div>
-	</footer>
+	</div>
 </div>
 
 <script src="{%static 'tools_home/js/jquery-3.2.1.min.js'%}"></script>
@@ -464,4 +211,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 </script>
 </body>
+
+
+	
+{% endblock content %}
+	
 </html>

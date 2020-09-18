@@ -39,7 +39,7 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" action = "login" method="POST">
 					{% csrf_token %}
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
@@ -72,6 +72,12 @@
 						<button class="login100-form-btn">
 							Login
 						</button>
+						
+						{% for messsage in messages %}
+							<h3>{{ message }}</h3>
+							
+						{% endfor %}
+							
 					</div>
 				</form>
 			</div>

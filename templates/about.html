@@ -110,9 +110,6 @@
                                     </div>
                                     <!-- founder -->
                                     <div class="testimonial-founder d-flex align-items-center justify-content-center">
-                                        <div class="founder-img">
-                                            <img src="{% static 'assets/img/testmonial/Homepage_testi.png'%}" alt="">
-                                        </div>
                                         <div class="founder-text">
                                             <span>ShiftSoft</span>
                                             <p>Co Founder</p>
@@ -221,7 +218,7 @@
                     </div>
                     <div class="col-xl-6 col-lg-4 col-md-4">
                         <div class="wantToWork-btn f-right">
-                            <a href="#" class="white-btn">Register with us</a>
+                            <a href="{%url 'signup'%}" class="white-btn">Register with us</a>
                         </div>
                     </div>
                 </div>
@@ -246,10 +243,6 @@
                                 </div>
                             </div>
                             <!-- logo -->
-                            <div class="footer-logo">
-                                <a href="index.html"><img src="{% static 'assets/img/logo/logo2_footer.png'%}"
-                                        alt=""></a>
-                            </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
@@ -272,7 +265,7 @@
                                 <h4>Important Link</h4>
                                 <ul>
                                     <li><a href="#"> View Projects</a></li>
-                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="{%url 'contact'%}">Contact Us</a></li>
                                     <li><a href="#">Support</a></li>
                                 </ul>
                             </div>
@@ -319,12 +312,8 @@
                         <div class="col-xl-10 col-lg-10 ">
                             <div class="footer-copy-right">
                                 <p>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                     Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script> All rights reserved |
-                                    This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a
-                                        href="https://colorlib.com" target="_blank">Colorlib</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    <script>document.write(new Date().getFullYear());</script> All rights reserved ShiftSoft Inc.
                                 </p>
                             </div>
                         </div>

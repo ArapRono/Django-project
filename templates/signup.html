@@ -30,36 +30,47 @@
 			<div class="image-holder">
 				<img src="{% static 'tools_reg/images/logo.jpg'%}" alt="">
 			</div>
-			<form action="" >
+			<form action="signup" method="POST" >
 				{% csrf_token %}
 				<h3>Sign up</h3>
 				<div class="form-group">
-					<input type="text" placeholder="First Name" class="form-control" name="first_name">
-					<input type="text" placeholder="Last Name" class="form-control" name="lastt_name">
+					<input type="text" placeholder="First Name" class="form-control" name="first_name" required>
+					<input type="text" placeholder="Last Name" class="form-control" name="last_name" required>
 				</div>
 				<div class="form-wrapper">
-					<input type="text" placeholder="Username" class="form-control" name="username">
+					<input type="text" placeholder="Username" class="form-control" name="username" required>
 					<!-- <i class="zmdi zmdi-account"></i> -->
 				</div>
 				<div class="form-wrapper">
-					<input type="email" placeholder="Email Address" class="form-control" name="email">
+					<input type="email" placeholder="Email address" class="form-control" name="email_phone_number">
 					<!-- <i class="zmdi zmdi-email"></i> -->
 				</div>
 				<div class="form-wrapper">
-					<input type="password" placeholder="Password" class="form-control" name="password1">
+					<input type="password" placeholder="Password" class="form-control" name="password_1" required>
 					<!-- <i class="zmdi zmdi-lock"></i> -->
 				</div>
 				<div class="form-wrapper">
-					<input type="password" placeholder="Confirm Password" class="form-control " name="password2">
+					<input type="password" placeholder="Confirm Password" class="form-control " name="password_2" required>
 					<!-- <i class="zmdi zmdi-lock"></i> -->
 				</div>
 				<button class="btn btn-primary">Sign up
 					<i class="zmdi zmdi-arrow-right"></i>
 				</button>
-			</form>
-		</div>
-	</div>
 
+			</form>	
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				
+				{% if messages %}
+				{% for message in messages %}
+				<h5>{{message}}</h5>
+				{% endfor %}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>				
+				{% endif %}
+			</div>
+		</div>			
+	</div>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
