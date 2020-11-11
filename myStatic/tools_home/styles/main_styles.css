@@ -1,34 +1,5 @@
 @charset "utf-8";
-/* CSS Document */
-
-/******************************
-
-[Table of Contents]
-
-1. Fonts
-2. Body and some general stuff
-3. Header
-4. Menu
-5. Home
-6. Home Search
-7. Intro
-8. Destinations
-9. Testimonials
-10. News
-11. Footer
-
-
-******************************/
-
-/***********
-1. Fonts
-***********/
-
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Oswald:400,500,600,700');
-
-/*********************************
-2. Body and some general stuff
-*********************************/
 
 *
 {
@@ -237,7 +208,7 @@ section
 .background_image
 {
 	position: absolute;
-	top: 0;
+	top: 20px;
 	left: 0;
 	width: 100%;
 	height: 100%;
@@ -559,10 +530,10 @@ section
 .home
 {
 	/* width: 100%; */
-	height: 600px;
+	height: 650px;
 	margin-left: 30px;
 	margin-right: 30px;
-	margin-bottom: 10;
+	margin-bottom: 30px;
 }
 .home_slider_container
 {
@@ -583,7 +554,7 @@ section
 	font-size: 90px;
 	line-height: 1.1;
 	font-weight: 400;
-	color: cyan;
+	color: white;
 }
 .home_page_nav
 {
@@ -829,9 +800,9 @@ section
 .destinations
 {
 	width: 100%;
-	background: #FFFFFF;
-	padding-top: 115px;
-	padding-bottom: 116px;
+	background: white;
+	padding-top: 5px;
+	padding-bottom: 3px;
 }
 .section_subtitle
 {
@@ -845,15 +816,17 @@ section
 }
 .section_title
 {
-	color: #181818;
-	margin-top: 26px;
+	color: #000000;
+	margin-top: 2px;
+	margin-bottom:2px;
 }
 .destinations_row
 {
-	margin-top: 99px;
+	margin-top:2px;
 }
 .destination_image
 {
+	height: 100%;
 	width: 100%;
 }
 .destination_image img
@@ -888,7 +861,7 @@ section
 	width: calc(100% / 3);
 	padding-left: 15px;
 	padding-right: 15px;
-	margin-bottom: 33px;
+	margin-bottom: 10px;
 }
 .destination_content
 {
@@ -924,8 +897,9 @@ section
 .testimonials
 {
 	width: 100%;
-	padding-top: 118px;
-	padding-bottom: 115px;
+	padding-top: 18px;
+	padding-bottom: 15px;
+	
 }
 .testimonials .section_title,
 .testimonials .section_subtitle
@@ -1313,8 +1287,8 @@ section
 }
 .footer_contact_row
 {
-	margin-top: 80px;
-	padding-bottom: 50px;
+	margin-top: 10px;
+	padding-bottom: 10px;
 }
 .footer_contact_item
 {

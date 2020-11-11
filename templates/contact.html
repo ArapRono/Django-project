@@ -26,21 +26,22 @@
 
 	<div class="wrapper" style="background-image: url({% static 'tools_contact/images/image_10.jpg'%});">
 		<div class="inner">
-			<form action="">
+			<form action="{% url 'contact'%}" method = "POST">
+				{% csrf_token %}
 				<h3>Contact Us</h3>
 				<p>ShiftSoft is the future.</p>
 				<label class="form-group">
-					<input type="text" class="form-control" required>
+					<input type="text" class="form-control" required name="user_name">
 					<span>Your Name</span>
 					<span class="border"></span>
 				</label>
 				<label class="form-group">
-					<input type="email" class="form-control" required>
+					<input type="email" class="form-control" required name="your_email">
 					<span for="">Your Email</span>
 					<span class="border"></span>
 				</label>
 				<label class="form-group">
-					<textarea name="" id="" class="form-control" required></textarea>
+					<textarea name="your_message" id="" class="form-control" required ></textarea>
 					<span for="">Your Message</span>
 					<span class="border"></span>
 				</label>
