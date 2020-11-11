@@ -40,50 +40,40 @@
 				<!-- Slide -->
 				<div class="owl-item">
 					
-					{% for house  in  houses %}
-					<div class="background_image" style="background-image:url({{ house.image_2.url }});"></div>
-					<div class="home_slider_content_container">
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="home_slider_content">
-										<div class="home_title">
-											<h2>Find the best home.</h2>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					{% if is_search_true %}
+						{% for detail  in  push_details %}
 						
-					{% endfor %}
-
+						{% if keyword in detail.county|title or keyword in detail.region|title or keyword in detail.estate|title %}
+						<div class="background_image" style="background-image:url({{ detail.image_1.url }});"></div>		
+						{% endif %}					
+						{% endfor %}
+					{% else %}
+						{% for house  in  houses %}
+						<div class="background_image" style="background-image:url({{ house.image_2.url }});"></div>						
+						{% endfor %}					
+					{% endif %}
 				</div>
-				
-
 			</div>
 		</div>
 	</div>
-	<div class="row" paddi>
+	<div class="row">
 		<div class="col text-center">
-			<div class="section_subtitle">
-				<h3><strong>simply amazing houses</strong></h3>
-			</div>
 			<div class="section_title">
-				<h3>Please type below to find the best home for you</h3>
+				<h3><strong>Search the best home</strong></h3>
 			</div>
 		</div>
 	</div>
 	<!-- Search -->
 
 	<div class="s003 container">
-		<form>
+		<form action="{% url 'search'%}" method="POST">
+			{% csrf_token %}
 			<div class="inner-form">
 				<div class="input-field second-wrap">
-					<input id="search" type="text" placeholder="Enter keywords eg. region,county, singlerooms, bedsitters, agent name etc." />
+					<input id="search" type="text" placeholder="Enter keywords eg. region,county, singlerooms, bedsitters, agent name etc."  name = "keyword"/>
 				</div>
 				<div class="input-field third-wrap">
-					<button class="btn-search" type="button">
+					<button class="btn-search" type="submit">
 						<svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas"
 							data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 							<path fill="currentColor"
@@ -95,11 +85,7 @@
 			</div>
 		</form>
 	</div>
-
-	<!-- Intro -->
-
-	<!-- Destinations -->
-
+	
 	<div class="destinations" id="destinations">
 		<div class="container">
 
@@ -109,6 +95,7 @@
 				</div>
 			</div>
 			<!--This iis the start of if condition-->
+
 			{% if is_clicked %}
 			<div>
 				<div>
@@ -153,41 +140,87 @@
 					</div>
 				</div>
 			</div>
+		
 
-			{% else %}
-			<div class="row destinations_row">
-				<div class="col">
-					<div class="destinations_container item_grid">
-						{% for house  in  houses %}
-						<!-- Destination -->
-						<div class="destination item">
-							<form action="{% url 'home'%}" method="POST">
-								{% csrf_token %}
-								<button value="{{ house.id }}" name="more_info"> 
-									<div class="destination_image">
-									<img src="{{ house.image_1.url }}" alt="">
-									</div>   
-								</button>
-							</form>
-							<div class="destination_content">
-								<div class="destination_title"><a href="#">{{house.county}} County</a></div>
-								<div class="destination_price">Total rent Ksh. {{house.rent}}</div>
-								<form action="{% url 'home'%}" method="POST">
-									{% csrf_token %}
-									<button class="btn btn-info btn btn-lg" value="{{ house.id }}" name="more_info"
-										id="more" type="submit">more</button>
-								</form>
+			{% else %}		
+				{% if is_search_true %}
+					<div class="row destinations_row">
+						<div class="col">
+							<div class="destinations_container item_grid">
+							{% for detail  in push_details %}
+								
+								{% if keyword in detail.county|title or keyword in detail.region|title or keyword in detail.estate|title %}
+							
+								<div class="destination item">
+									<form action="{% url 'home'%}" method="POST">
+										{% csrf_token %}
+										<button value="{{ detail.id }}" name="more_info">
+											<div class="destination_image">
+												<img src="{{ detail.image_1.url }}" alt="">
+											</div>
+										</button>
+									</form>
+									<div class="destination_content">
+										<div class="destination_title"><a href="#">{{detail.county}} County, {{detail.region}} area</a></div>
+										<div class="destination_price">Total rent Ksh. {{detail.rent}}</div>
+										<form action="{% url 'home'%}" method="POST">
+											{% csrf_token %}
+											<button class="btn btn-info btn btn-lg" value="{{ detail.id }}" name="more_info" id="more"
+												type="submit">more info</button>
+										</form>
+									</div>
+								</div>						
+								{% endif %}
+							{% endfor %}					
 							</div>
 						</div>
-						{% endfor %}
 					</div>
-				</div>
-			</div>
+				{% else %}
+							{% if messages %}
+							{% for message in messages %}
+							
+							<div class="alert alert-info alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+								<h1>{{ message }}</h1>
+							</div>							
+							{% endfor %}
+							{% else %}
+							<div class="row destinations_row">
+								<div class="col">
+									<div class="destinations_container item_grid">
+										{% for house  in  houses %}
+										<!-- Destination -->
+										<div class="destination item">
+											<form action="{% url 'home'%}" method="POST">
+												{% csrf_token %}
+												<button value="{{ house.id }}" name="more_info">
+													<div class="destination_image">
+														<img src="{{ house.image_1.url }}" alt="">
+													</div>
+												</button>
+											</form>
+											<div class="destination_content">
+												<div class="destination_title"><a href="#">{{house.county}} County, {{house.region}} area </a></div>
+												<div class="destination_price">Total rent Ksh. {{house.rent}}</div>
+												<form action="{% url 'home'%}" method="POST">
+													{% csrf_token %}
+													<button class="btn btn-info btn btn-lg" value="{{ house.id }}" name="more_info" id="more"
+														type="submit">more info</button>
+												</form>
+											</div>
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
 
-				
+							
+							{% endif %}
+					
+				{% endif %}
+							
 			{% endif %}
-			<!--This is the end of if condition-->
-			
+			<!--This is the end of if condition-->		
 		</div>
 	</div>
 </div>
